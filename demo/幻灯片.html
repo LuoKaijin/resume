@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>幻灯片</title>
+    <link rel="icon" href="img/toy.png" type="image/x-icon"/>
+    <style>
+        *{margin: 0;padding: 0;}
+        li{list-style: none;}
+        body{background: #0aa770;}
+        #box{width: 512px;height: 320px;position: absolute;left: 0;top: 0;right: 0;bottom: 0;margin:auto;overflow: hidden;}
+        #ul1{position: absolute;left: 0;top: 0;}
+        #ul1 li{width: 512px;height: 320px;float: left;}
+        #ul1 img{width: 100%;}
+        #ol1{width: 400px;position: absolute;left: 50%;margin-left: -200px;bottom: 0;}
+        #ol1 li{width: 80px;height: 20px;background: #fff;float: left;margin: 10px;position: relative;}
+        #ol1 li span{width: 0;height: 100%;position: absolute;left: 0;top: 0;background: #f82c2c;}
+    </style>
+    <script src="../javascripts/all.min.js"></script>
+</head>
+<body>
+<div id="box">
+    <ul id="ul1">
+        <li><img src="img/a.jpg"></li>
+        <li><img src="img/b.jpg"></li>
+        <li><img src="img/c.jpg"></li>
+        <li><img src="img/d.jpg"></li>
+    </ul>
+    <ol id="ol1">
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+    </ol>
+</div>
+<script>
+    var oBox=document.getElementById('box');
+    var oUl=document.getElementById('ul1');
+    var aLi=oUl.getElementsByTagName('li');
+    var oOl=document.getElementById('ol1');
+    var aSpan=document.getElementsByTagName('span');
+    oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+    var n=0;
+    function next(){
+        move(aSpan[n%4],{
+            width:80
+        },{
+            complete:function(){
+                n++;
+                for(var i=0;i<aSpan.length;i++){
+                    aSpan[i%4].style.width=0;
+                }
+                move(oUl,{
+                    left:-aLi[0].offsetWidth*[n%4]
+                })
+                next();
+            }
+        })
+    }
+    next();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            perspective: 2000px;
+            /*margin: 100px;*/
+        }
+         .content{
+             width: 300px;
+             height: 200px;
+             position: absolute;
+             top: 200px;
+             left: 40%;
+             transform-style: preserve-3d;
+
+             animation: turn 12s infinite;
+         }
+        img{
+            width: 300px;
+            height: 200px;
+            position: absolute;
+        }
+
+        @keyframes turn {
+            0%{
+                transform: rotateY(0deg);
+            }
+            16.7%{
+                transform: rotateY(60deg);
+            }
+            33.3%{
+                transform: rotateY(120deg);
+            }
+            50%{
+                transform: rotateY(180deg);
+            }
+            66.7%{
+                transform: rotateY(240deg);
+            }
+            83.3%{
+                transform: rotateY(300deg);
+            }
+            100%{
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="box">
+       <div class="content">
+           <img src="img/1.jpg" style="transform: rotateY(0deg) translateZ(500px)">
+           <img src="img/2.jpg" style="transform: rotateY(60deg) translateZ(500px)">
+           <img src="img/3.jpg" style="transform: rotateY(120deg) translateZ(500px)">
+           <img src="img/4.jpg" style="transform: rotateY(180deg) translateZ(500px)">
+           <img src="img/5.jpg" style="transform: rotateY(240deg) translateZ(500px)">
+           <img src="img/6.jpg" style="transform: rotateY(300deg) translateZ(500px)">
+       </div>
+   </div>
+</body>
+</html>

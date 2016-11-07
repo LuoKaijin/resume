@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变换曲线</title>
+    <link rel="icon" href="img/toy.png" type="image/x-icon"/>
+    <style>
+        *{margin: 0;padding: 0;}
+        canvas{background: #000;}
+        html,body{overflow: hidden;}
+    </style>
+</head>
+<body>
+<canvas id="cvs"></canvas>
+<script>
+    function rnd(n,m){
+        return parseInt(Math.random()*(m-n)+n);
+    }
+    var oC = document.getElementById('cvs');
+    oC.width = document.documentElement.clientWidth;
+    oC.height = document.documentElement.clientHeight;
+    var gd = oC.getContext('2d');
+    // 点的个数
+    var N = 5;
+    // 尾数
+    var LEN = 14;
+    // 存点容器
+    var apoint = [];
+    var oldPoint = [];
+
+    for(var i=0; i<N; i++){
+        apoint.push({
+            x:rnd(0,oC.width),
+            y:rnd(0,oC.height),
+            iSpeedX:rnd(-10,10),
+            iSpeedY:rnd(-10,10)
+        })
+    }
+    // 移动,画图
+    setInterval(function(){
+        gd.clearRect(0,0,oC.width,oC.height)
+        // 改变没个点的坐标和速度
+        for(var i=0; i<N; i++){
+            if(apoint[i].x<0 || apoint[i].x>oC.width){
+                apoint[i].iSpeedX*=-1;
+            }
+            if(apoint[i].y<0 || apoint[i].y>oC.height){
+                apoint[i].iSpeedY*=-1;
+            }
+            apoint[i].x+=apoint[i].iSpeedX;
+            apoint[i].y+=apoint[i].iSpeedY;
+        }
+        // 画点
+        for(var i=0; i<N; i++){
+            drawPoint(apoint[i])
+        }
+        // 连线
+        gd.beginPath();
+        gd.moveTo(apoint[0].x,apoint[0].y);
+        for(var i=1; i<N; i++){
+            gd.lineTo(apoint[i].x,apoint[i].y)
+        }
+        gd.closePath();
+        gd.strokeStyle = '#f20a20';
+        gd.stroke();
+
+        // 存历史点
+        var arr = [];
+        for(var i=0; i<N; i++){
+            arr.push({
+                x:apoint[i].x,
+                y:apoint[i].y,
+                iSpeedX:apoint[i].iSpeedX,
+                iSpeedY:apoint[i].iSpeedY
+            })
+        }
+
+        oldPoint.push(arr);
+        // 删除多余历史线
+        if(oldPoint.length>LEN)oldPoint.shift();
+        // 连接历史点
+        for(var i=0; i<oldPoint.length; i++){
+            gd.beginPath();
+            gd.moveTo(oldPoint[i][0].x,oldPoint[i][0].y)
+            for(var j=1; j<N; j++){
+                gd.lineTo(oldPoint[i][j].x,oldPoint[i][j].y)
+            }
+            gd.closePath();
+            gd.strokeStyle = 'rgba(242,10,32,'+i/LEN+')';
+            gd.stroke();
+        }
+
+    },16)
+
+    function drawPoint(oPoint){
+        gd.beginPath();
+        gd.fillStyle = '#fff';
+        gd.fillRect(oPoint.x,oPoint.y,1,1);
+    }
+</script>
+</body>
+</html>
