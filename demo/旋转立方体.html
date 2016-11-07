@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            margin: 500px auto;
+            /*perspective: 4000px;*/
+            position: relative;
+            transform-style: preserve-3d;
+            /*transform: rotateX(160deg) rotateY(60deg) rotateZ(60deg);*/
+            transition: 20s linear;
+
+            animation: rotate 20s infinite;
+
+        }
+        .box div{
+            width: 200px;
+            height: 200px;
+            /*background-color: yellow;*/
+            opacity: 0.5;
+            text-align: center;
+            line-height: 200px;
+            color: black;
+            position: absolute;
+
+
+
+        }
+        /*正面*/
+        .one{
+            background-color: yellow;
+            /*opacity: 0.5;*/
+        }
+        /*右面*/
+        .two{
+            transform-origin: left;
+            transform: rotateY(90deg);
+            /*opacity: 0.5;*/
+            left: 200px;
+            background-color: red;
+        }
+        /*下面*/
+        .three{
+            /*opacity: 0.5;*/
+            top:200px;
+            transform-origin: top;
+            background-color: blue;
+            transform:   rotateX(-90deg);
+        }
+        /*上面*/
+        .four{
+            background-color: purple;
+            transform-origin: bottom;
+
+            transform: translateY(200px) rotateX(90deg) ;
+
+
+
+            bottom:200px;
+        }
+        /*左面*/
+        .five{
+            /*right: -100px;*/
+            background-color: orangered;
+            transform-origin: top;
+            transform: rotateY(90deg) translateX(100px) translateZ(-100px);
+        }
+        /*后面*/
+        .six{
+            /*top: 400px;*/
+            background-color: green;
+            transform: translateZ(-200px);
+        }
+        /*.box:hover{*/
+        /*transform: rotateX(2000deg) rotateY(2000deg) rotateZ(2000deg);*/
+        /*}*/
+
+
+
+
+        @keyframes rotate {
+            0%{
+                transform: rotateX(0deg) rotateY(0deg);
+
+            }
+            100%{
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+
+
+        }
+        .box:hover .one{
+            transform: translateZ(200px);
+        }
+        .box:hover .two{
+            transform:  rotateY(90deg) translateZ(200px);
+        }
+        .box:hover .three{
+            transform: rotateX(-90deg) translateZ(200px);
+        }
+        .box:hover .four{
+            transform:  rotateX(90deg) ;
+        }
+        .box:hover .five{
+            transform: rotateY(-90deg) translateZ(200px);
+        }
+        .box:hover .six{
+            transform: translateZ(-400px);
+        }
+        div:hover{
+            animation-play-state: paused;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="one">111</div>
+    <div class="two">222</div>
+    <div class="three">333</div>
+    <div class="four">444</div>
+    <div class="five">555</div>
+    <div class="six">666</div>
+</div>
+</body>
+</html>

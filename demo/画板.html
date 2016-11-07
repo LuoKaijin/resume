@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/toy.png" type="image/x-icon"/>
+    <title>画板</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{background: #0cf0c8;}
+        #cvs{background: #fff;border: 5px solid #a7b7b7;position: absolute;left: 0;top: 0;right: 0;bottom: 0;margin: auto;}
+    </style>
+    <script src="../javascripts/all.min.js"></script>
+</head>
+<body>
+<canvas id="cvs" width="900" height="500"></canvas>
+<script type="text/javascript">
+    var canvas = document.getElementById('cvs');
+    var oC=canvas.getContext("2d");
+    oC.lineWidth=5
+    oC.strokeStyle="green";
+
+    var paint=0;
+
+    $("#cvs").mousedown(function(ev){
+
+        var mouseX = ev.pageX - this.offsetLeft;
+        var mouseY = ev.pageY - this.offsetTop;
+
+        paint=1;
+        oC.moveTo(mouseX,mouseY); //起始位置
+
+    });
+    $("#cvs").mousemove(function(ev){
+        var mouseX = ev.pageX - this.offsetLeft;
+        var mouseY = ev.pageY - this.offsetTop;
+
+        if(paint){
+            oC.lineTo(mouseX,mouseY); //终止位置
+            oC.stroke();				//结束图形
+        }
+
+    });
+    $("#cvs").mouseup(function(ev){
+        paint=0;
+    });
+</script>
+</body>
+</html>
